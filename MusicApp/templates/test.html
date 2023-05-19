@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="recommendation">
+        {%for song in recommended_song_ids%}
+            <form method="post" id="{{recommended_song_ids.index(song)}}">
+                <input type="submit" id="{{recommended_song_ids.index(song)}}" value="{{recommended_song_ids.index(song)}}"></input>
+            </form>
+            <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+        
+        <script type="text/javascript">
+        $(document).on('submit','#{{recommended_song_ids.index(song)}}',function(e)
+                     {
+        //console.log($("#todo"),val());
+        e.preventDefault();
+        var $index = e.target.id;
+        $.ajax({
+          type:'POST',
+          url:'/playsong',
+          data:{
+            todo: $index
+          },
+          success:function()
+          {
+            //alert('saved');
+          }
+        })
+        });
+        </script>
+    </div> 
+    {%endfor%}
+
+</body>
+</html>
